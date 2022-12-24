@@ -10,7 +10,8 @@ exports.shop = async (req, res, next) => {
                     id: shop._id,
                     name: shop.name,
                     photo: 'http://localhost:3000/images/',
-                    location: shop.location
+                    location: shop.location,
+                    
             }
         })
 
@@ -19,8 +20,14 @@ exports.shop = async (req, res, next) => {
     }) 
 }
 exports.menu = async (req, res, next) => {
-    const menu =await Menu.find().sort({_id: -1});
+    const menu =await Menu.find().populate('shop')
     res.status(200).json({
         data: menu
+    }) 
+}
+exports.show = async (req, res, next) => {
+    const shop =await Shop.findById(req.params.id).populate('menus')
+    res.status(200).json({
+        data: shop,
     }) 
 }

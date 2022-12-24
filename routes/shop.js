@@ -6,4 +6,5 @@ const shops = require('../models/shop')
 /* GET users listing. */
 router.get('/',shopController.shop );
 router.get('/menu',shopController.menu );
+router.get('/:id', shopController.show);
 module.exports = router;
