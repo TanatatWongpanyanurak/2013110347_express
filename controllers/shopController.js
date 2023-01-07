@@ -10,7 +10,7 @@ exports.shop = async (req, res, next) => {
             return{
                     id: shop._id,
                     name: shop.name,
-                    photo: config.DOMAIN,
+                    photo: config.DOMAIN + shop.photo,
                     location: shop.location,
                     
             }
