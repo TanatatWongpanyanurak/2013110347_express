@@ -8,4 +8,4 @@ router.delete('/:id', staffController.destroy);
 router.put('/:id', staffController.update);
 router.post('/', staffController.insert);
 
-module.exports = router;s
+module.exports = router;
