@@ -6,9 +6,10 @@ const mongoose = require('mongoose')
 const config = require('./config/index')
 
 var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/controller');
+var usersRouter = require('./routes/users');
+var compnayRouter = require('./routes/controller');
 var shopRouter = require('./routes/shop');
-var staffRouter = require('./routes/staff.js')
+var staffRouter = require('./routes/staff.js');
 
 var app = express();
 
@@ -23,7 +24,8 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
-app.use('/company', usersRouter);
+app.use('/company',compnayRouter)
+app.use('/user', usersRouter);
 app.use('/staff',staffRouter)
 app.use('/shop', shopRouter);
 
