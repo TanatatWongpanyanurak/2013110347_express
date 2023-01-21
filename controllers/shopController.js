@@ -6,6 +6,7 @@ const path = require("path");
 const uuidv4 = require("uuid");
 const { promisify } = require("util");
 const writeFileAsync = promisify(fs.writeFile);
+const {validationResult} = require('express-validator')
 
 //get all data
 exports.shop = async (req, res, next) => {
@@ -39,7 +40,15 @@ exports.show = async (req, res, next) => {
   });
 };
 exports.insert = async (req, res, next) => {
+  try{
   const { name, location, photo } = req.body;
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+      const error = new Error("ข้อมูลที่ได้รับมาไม่ถูกต้อง")
+      error.statusCode = 422;
+      error.validation = errors.array()
+      throw error;
+  }
   let shop = new Shop({
     name: name,
     location: location,
@@ -50,6 +59,9 @@ exports.insert = async (req, res, next) => {
   res.status(200).json({
     message: "เพิ่มร้านอาหารเรียบร้อย",
   });
+} catch(error){
+  next(error);
+}
 };
 async function saveImageToDisk(baseImage) {
   //หา path จริงของโปรเจค
