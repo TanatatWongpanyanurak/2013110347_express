@@ -92,4 +92,12 @@ exports.log = async (req,res,next) =>{
   next(error)
 }
 }
+exports.profile = (req, res, next) => {
+  const {role,name,email} = req.user
+  res.status(200).json({
+     role:role,
+     name:name,
+     email:email,
+  });
+};
 
